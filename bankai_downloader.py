@@ -58,7 +58,15 @@ DIM = "dim"
 
 _ANDROID_DIR = "/storage/emulated/0/Download/BankaiDownloader"
 _DEFAULT_FALLBACK = os.path.expanduser("~/Downloads/BankaiDownloader")
-DEFAULT_DOWNLOAD_DIR = _ANDROID_DIR if os.path.isdir("/storage/emulated/0") else _DEFAULT_FALLBACK
+
+def _resolve_download_dir():
+    """Use Android storage if writable, otherwise fall back to home dir."""
+    test_dir = "/storage/emulated/0/Download"
+    if os.path.isdir(test_dir) and os.access(test_dir, os.W_OK):
+        return _ANDROID_DIR
+    return _DEFAULT_FALLBACK
+
+DEFAULT_DOWNLOAD_DIR = _resolve_download_dir()
 VERSION = "1.0.0"
 AUTHOR = "Kouxik"
 
