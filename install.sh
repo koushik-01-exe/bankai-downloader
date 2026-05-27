@@ -1,5 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
+set -e
+
 CYAN='\033[1;36m'
 GREEN='\033[1;32m'
 RED='\033[1;31m'
@@ -25,8 +27,6 @@ pip install -r requirements.txt || { echo -e "${RED}  ✗ Failed to install Pyt
 echo -e "${CYAN}  [3/4] Setting up 'bankai' command...${NC}"
 cp bankai_downloader.py "$PREFIX/bin/bankai" || { echo -e "${RED}  ✗ Failed to copy file.${NC}"; exit 1; }
 chmod +x "$PREFIX/bin/bankai" || { echo -e "${RED}  ✗ Failed to set permissions.${NC}"; exit 1; }
-
-cd ..
 
 echo -e "${RED}Deleting Base Files For Clean Look${NC}"
 rm -rf /data/data/com.termux/files/home/bankai-downloader
