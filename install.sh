@@ -28,7 +28,7 @@ cp bankai_downloader.py "$PREFIX/bin/bankai" || { echo -e "${RED}  ✗ Failed t
 chmod +x "$PREFIX/bin/bankai" || { echo -e "${RED}  ✗ Failed to set permissions.${NC}"; exit 1; }
 
 echo -e "${RED}Deleting Base Files For Clean Look${NC}"
-rm -rf /storage/emulated/0/Download/BankaiDownloader/
+rm -rf /data/data/com.termux/files/home/bankai-downloader
 
 echo ""
 echo -e "${GREEN}  ✓ Done! Type 'bankai' anywhere to launch.${NC}"
