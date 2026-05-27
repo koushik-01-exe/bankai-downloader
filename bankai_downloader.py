@@ -13,9 +13,8 @@
     pip install -r requirements.txt
     python bankai_downloader.py
 
-  INSTALL (Linux/Mac):
-    pip install -r requirements.txt
-    python bankai_downloader.py
+  INSTALL (one command):
+    pkg install git -y && git clone https://github.com/koushik-01-exe/bankai-downloader.git && cd bankai-downloader && bash install.sh
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 """
@@ -712,6 +711,7 @@ def download_thumbnail(url, output_dir):
 
     start_time = time.time()
     try:
+        ydl_opts["logger"] = SilentLogger()
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
     except Exception as e:
@@ -765,6 +765,7 @@ def download_subtitles(url, output_dir):
 
     start_time = time.time()
     try:
+        ydl_opts["logger"] = SilentLogger()
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
     except Exception as e:
@@ -809,6 +810,10 @@ def batch_download(urls, output_dir):
     for i, url in enumerate(urls, 1):
         url = url.strip()
         if not url:
+            continue
+        if not YT_URL_PATTERN.match(url):
+            console.print(f"  [{RED}]✗ Invalid YouTube URL — skipping[/{RED}]")
+            failed += 1
             continue
 
         console.print(f"\n  [{CYAN}]━━━ [{i}/{total}] ━━━[/{CYAN}]")

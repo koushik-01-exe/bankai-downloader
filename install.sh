@@ -13,7 +13,7 @@ echo ""
 
 # Step 0: Grant storage permission (needed for /storage/emulated/0/Download)
 echo -e "${CYAN}  [0/4] Granting storage permission...${NC}"
-termux-setup-storage -y
+termux-setup-storage
 
 # Step 1: System dependencies
 echo -e "${CYAN}  [1/4] Installing system dependencies...${NC}"
@@ -27,9 +27,6 @@ pip install -r requirements.txt || { echo -e "${RED}  ✗ Failed to install Pyt
 echo -e "${CYAN}  [3/4] Setting up 'bankai' command...${NC}"
 cp bankai_downloader.py "$PREFIX/bin/bankai" || { echo -e "${RED}  ✗ Failed to copy file.${NC}"; exit 1; }
 chmod +x "$PREFIX/bin/bankai" || { echo -e "${RED}  ✗ Failed to set permissions.${NC}"; exit 1; }
-
-echo -e "${RED}Deleting Base Files For Clean Look${NC}"
-rm -rf /data/data/com.termux/files/home/bankai-downloader
 
 echo ""
 echo -e "${GREEN}  ✓ Done! Type 'bankai' anywhere to launch.${NC}"
