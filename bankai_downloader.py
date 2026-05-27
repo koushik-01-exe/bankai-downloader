@@ -61,10 +61,13 @@ _DEFAULT_FALLBACK = os.path.expanduser("~/Downloads/BankaiDownloader")
 
 def _resolve_download_dir():
     """Use Android storage if writable, otherwise fall back to home dir."""
-    test_dir = "/storage/emulated/0/Download"
-    if os.path.isdir(test_dir) and os.access(test_dir, os.W_OK):
+    try:
+        os.makedirs(_ANDROID_DIR, exist_ok=True)
         return _ANDROID_DIR
-    return _DEFAULT_FALLBACK
+    except PermissionError:
+        return _DEFAULT_FALLBACK
+    except OSError:
+        return _DEFAULT_FALLBACK
 
 DEFAULT_DOWNLOAD_DIR = _resolve_download_dir()
 VERSION = "1.0.0"
@@ -412,7 +415,16 @@ def show_quality_menu(info, formats):
 
 def ensure_output_dir(path):
     """Create output directory if it doesn't exist."""
-    os.makedirs(path, exist_ok=True)
+    try:
+        os.makedirs(path, exist_ok=True)
+    except PermissionError:
+        fallback = os.path.expanduser("~/Downloads/BankaiDownloader")
+        console.print(f"\n  [{YELLOW}]⚠ Storage permission not granted.[/{YELLOW}]")
+        console.print(f"  [{DIM}]Run 'termux-setup-storage' to grant access.[/{DIM}]")
+        console.print(f"  [{CYAN}]Using fallback: {fallback}[/{CYAN}]\n")
+        os.makedirs(fallback, exist_ok=True)
+        return fallback
+    return path
 
 
 def make_progress_hook():
@@ -886,8 +898,7 @@ def get_url(prompt_text="Enter video URL"):
 
 def get_output_dir():
     """Return the fixed download directory."""
-    ensure_output_dir(DEFAULT_DOWNLOAD_DIR)
-    return DEFAULT_DOWNLOAD_DIR
+    return ensure_output_dir(DEFAULT_DOWNLOAD_DIR)
 
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
