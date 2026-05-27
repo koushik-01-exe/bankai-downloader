@@ -1,6 +1,6 @@
 # Bankai Downloader
 
-A feature-rich YouTube video downloader CLI tool for Termux and Linux, built with Python.
+A feature-rich YouTube video downloader CLI tool for Termux, built with Python.
 
 ## Features
 
@@ -15,11 +15,6 @@ A feature-rich YouTube video downloader CLI tool for Termux and Linux, built wit
 **Termux:**
 ```bash
 pkg install git -y && git clone https://github.com/koushik-01-exe/bankai-downloader.git && cd bankai-downloader && bash install.sh
-```
-
-**Linux / Mac:**
-```bash
-git clone https://github.com/koushik-01-exe/bankai-downloader.git && cd bankai-downloader && bash install.sh
 ```
 
 After install, run from anywhere:
