@@ -1,5 +1,4 @@
 #!/data/data/com.termux/files/usr/bin/bash
-set -e
 
 CYAN='\033[1;36m'
 GREEN='\033[1;32m'
