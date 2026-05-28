@@ -17,7 +17,7 @@ termux-setup-storage
 
 # Step 1: System dependencies
 echo -e "${CYAN}  [1/4] Installing system dependencies...${NC}"
-pkg install -y python ffmpeg git || { echo -e "${RED}  ✗ Failed to install system dependencies.${NC}"; exit 1; }
+pkg install -y python ffmpeg git yt-dlp || { echo -e "${RED}  ✗ Failed to install system dependencies.${NC}"; exit 1; }
 
 # Step 2: Python packages
 echo -e "${CYAN}  [2/4] Installing Python packages...${NC}"
